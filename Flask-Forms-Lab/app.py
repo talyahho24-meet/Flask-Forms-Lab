@@ -21,21 +21,18 @@ def login():
 		username = request.form ['username']
 		password = request.form ['password']
 		if username == request.form ['username'] and password == request.form ['password'] :
-			return render_template('home.html')
-		else: return render_tamplate ('login.html')
+			return redirect(url_for('home'))
+		else: 
+			return render_template ('login.html')
 	
-	@app.route('home')
-	def home():
-		return render_template_('home.html')
-
-'facebook_friends' = frfr
-	return render_template('home.html, value = frfr')
-	
-
-
-
+@app.route('/home', methods =['GET', 'POST'])
+def home():
+	return render_template('home.html' , frfr = facebook_friends)
 
 
 if __name__ == "__main__":  # Makes sure this is the main process
 	app.run(debug=True)
 
+@app.route ('/friend_exists/<string:name>', methods = ['GET', 'POST'])
+def friend_exists(frfr, name):
+	return render_template('friend_exists.html', frfr= 'facebook_friends', n = name)
